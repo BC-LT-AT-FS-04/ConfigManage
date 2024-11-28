@@ -16,7 +16,7 @@ jobs:
     - name: Add SSH Key to known_host
       run: |
         mkdir -p ~/.ssh
-        ssh-keyscan -H $(echo "{{ secrets.SSH_BASTION_SERVER }}") >> ~/.ssh/known_hosts
+        ssh-keyscan -H ${{ secrets.SSH_BASTION_SERVER }} > ~/.ssh/known_hosts
         
     - name: Setup SSH Keys
       run: |
@@ -24,5 +24,5 @@ jobs:
         echo "${{ secrets.BASTION_KEY }}" > atbastionkey
         chmod 600 ~/.ssh/id_rsa
         chmod 600 atbastionkey
-        ssh -o StrictHostKeyChecking=no -i atbastionkey -J at04@"{{ secrets.SSH_BASTION_SERVER }}" ubuntu@"{{ secrets.DEV_SERVER_IP }}" pwd
+        ssh -o StrictHostKeyChecking=no -i atbastionkey -J at04@"${{ secrets.SSH_BASTION_SERVER }}" ubuntu@"${{ secrets.DEV_SERVER_IP }}" pwd
         
