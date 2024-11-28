@@ -28,5 +28,10 @@ jobs:
 
     - name: Env vars
       run: |
-        printenv
+        export BASTION_SERVER=${{ secrets.SSH_BASTION_SERVER }}
+        export BASTION_USER=${{ vars.BASTION_SERVER_USER }}
+        export DEV_SERVER_IP=${{ secrets.DEV_SERVER_IP }}
+        export PROD_SERVER_IP=${{ secrets.PROD_SERVER_IP }}
+        export DEV_PROD_USER=${{ vars.DEV_PROD_USER }}
+        export DEV_PROD_USER=atbastionkey
         
