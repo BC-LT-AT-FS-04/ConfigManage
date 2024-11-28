@@ -29,7 +29,7 @@ jobs:
         export DEV_SERVER_IP=${{ secrets.DEV_SERVER_IP }}
         export PROD_SERVER_IP=${{ secrets.PROD_SERVER_IP }}
         export DEV_PROD_USER=${{ vars.DEV_PROD_USER }}
-        export DEV_PROD_USER=atbastionkey
+        export BASTION_KEY=atbastionkey
         ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
         # ssh -o StrictHostKeyChecking=no -i atbastionkey -J at04@"${{ secrets.SSH_BASTION_SERVER }}" ubuntu@"${{ secrets.DEV_SERVER_IP }}" pwd
 
