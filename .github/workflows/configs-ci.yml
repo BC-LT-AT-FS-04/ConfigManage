@@ -54,7 +54,3 @@ jobs:
         export DEV_PROD_USER=${{ vars.DEV_PROD_USER }}
         export BASTION_KEY=atbastionkey
         ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
-
-    - name: Lint
-      run: |
-        apt install ansible-lint -y
