@@ -45,12 +45,22 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         chmod 600 atbastionkey
 
+    - name: Create .env file
+      run: |
+        echo "BASTION_SERVER=${{ secrets.SSH_BASTION_SERVER }}" > .env
+        echo "BASTION_USER=${{ vars.BASTION_SERVER_USER }}" >> .env
+        echo "DEV_SERVER_IP=${{ secrets.DEV_SERVER_IP }}" >> .env
+        echo "PROD_SERVER_IP=${{ secrets.PROD_SERVER_IP }}" >> .env
+        echo "DEV_PROD_USER=${{ vars.DEV_PROD_USER }}" >> .env
+        echo "BASTION_KEY=atbastionkey" >> .env
+
     - name: Ping Target Servers
       run: |
-        export BASTION_SERVER=${{ secrets.SSH_BASTION_SERVER }}
-        export BASTION_USER=${{ vars.BASTION_SERVER_USER }}
-        export DEV_SERVER_IP=${{ secrets.DEV_SERVER_IP }}
-        export PROD_SERVER_IP=${{ secrets.PROD_SERVER_IP }}
-        export DEV_PROD_USER=${{ vars.DEV_PROD_USER }}
-        export BASTION_KEY=atbastionkey
+        # export BASTION_SERVER=${{ secrets.SSH_BASTION_SERVER }}
+        # export BASTION_USER=${{ vars.BASTION_SERVER_USER }}
+        # export DEV_SERVER_IP=${{ secrets.DEV_SERVER_IP }}
+        # export PROD_SERVER_IP=${{ secrets.PROD_SERVER_IP }}
+        # export DEV_PROD_USER=${{ vars.DEV_PROD_USER }}
+        # export BASTION_KEY=atbastionkey
+        source .env
         ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
