@@ -36,7 +36,8 @@
       "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
       $(. /etc/os-release && echo \"$VERSION_CODENAME\") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     executable: /bin/bash
-  changed_when: true
+  register: my_output
+  changed_when: my_output.rc != 0
 
 - name: Update apt package index again
   ansible.builtin.apt:
