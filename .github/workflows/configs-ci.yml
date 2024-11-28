@@ -33,7 +33,7 @@ jobs:
         # ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
         # ssh -o StrictHostKeyChecking=no -i atbastionkey -J at04@"${{ secrets.SSH_BASTION_SERVER }}" ubuntu@"${{ secrets.DEV_SERVER_IP }}" pwd
 
-    - name: Export Env vars
+    - name: Check connectivity
       run: |
         export BASTION_SERVER=@${{ secrets.SSH_BASTION_SERVER }}
         export BASTION_USER=${{ vars.BASTION_SERVER_USER }}
@@ -42,7 +42,7 @@ jobs:
         export DEV_PROD_USER=${{ vars.DEV_PROD_USER }}
         export BASTION_KEY=atbastionkey
         ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
-        
-    # - name: Check connectivity
-    #   run: |
-    #     ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
+
+    - name: Lint
+      run: |
+        ansible-lint
