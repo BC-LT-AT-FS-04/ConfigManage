@@ -12,4 +12,4 @@ all:
     ansible_connection: ssh
     ansible_user: "{{ dev_prod_user }}"
     ansible_ssh_private_key_file: /workspace/jala-u/IRE-321-DevOps/atbastionkey
-    ansible_ssh_common_args: "-o StrictHostKeyChecking=no -o ProxyJump={{ bastion_user }}@{{ bastion_server }}"
+    ansible_ssh_common_args: "-o StrictHostKeyChecking=no -o ProxyJump='{{ bastion_user }}@{{ bastion_server }}'"
