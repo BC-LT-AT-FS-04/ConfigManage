@@ -18,7 +18,6 @@ jobs:
         mkdir -p ~/.ssh
         touch ~/.ssh/id_rsa
         ssh-keyscan -H devops.jala.university >> ~/.ssh/known_hosts
-        ssh-keyscan -H 10.27.5.157 >> ~/.ssh/known_hosts
         echo "${{ secrets.USER_KEY }}" > ~/.ssh/id_rsa
         echo "${{ secrets.BASTION_KEY }}" > atbastionkey
         chmod 600 ~/.ssh/id_rsa
