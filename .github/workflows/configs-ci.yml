@@ -63,4 +63,4 @@ jobs:
         export PROD_SERVER_IP=${{ secrets.PROD_SERVER_IP }}
         export DEV_PROD_USER=${{ vars.DEV_PROD_USER }}
         export BASTION_KEY=atbastionkey
-        ansible-playbook playbook.yml -i host_vars/inventory.yml -e @group_vars/vars.yml --check
+        ansible-playbook playbook.yml -i host_vars/inventory.yml -e @group_vars/vars.yml

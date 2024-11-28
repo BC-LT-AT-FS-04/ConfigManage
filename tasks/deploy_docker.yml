@@ -22,37 +22,26 @@
     dest: /etc/apt/keyrings/docker.asc
     mode: '0644'
 
-# - name: Add Docker's official APT repository
-#   ansible.builtin.apt_repository:
-#     repo: |
-#       deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu "noble" stable
-#     state: present
-
-- name: Add Docker repository to Apt sources
-  ansible.builtin.shell:
-    cmd: |
-      set -o pipefail
-      echo \
-      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-      $(. /etc/os-release && echo \"$VERSION_CODENAME\") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-    executable: /bin/bash
-  register: my_output
-  changed_when: my_output.rc != 0
+- name: Add Docker's official APT repository
+  ansible.builtin.apt_repository:
+    repo: |
+      deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu "noble" stable
+    state: present
 
 - name: Update apt package index again
   ansible.builtin.apt:
     update_cache: true
 
-- name: Install Docker Engine
-  ansible.builtin.apt:
-    pkg:
-      - docker-ce
-      - docker-ce-cli
-      - docker-compose-plugin
-    # state: latest
+# - name: Install Docker Engine
+#   ansible.builtin.apt:
+#     pkg:
+#       - docker-ce
+#       - docker-ce-cli
+#       - docker-compose-plugin
+#     # state: latest
 
-- name: Ensure Docker service is enabled and started
-  ansible.builtin.service:
-    name: docker
-    state: started
-    enabled: true
+# - name: Ensure Docker service is enabled and started
+#   ansible.builtin.service:
+#     name: docker
+#     state: started
+#     enabled: true
