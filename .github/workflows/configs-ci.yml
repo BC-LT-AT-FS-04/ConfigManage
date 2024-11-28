@@ -45,4 +45,4 @@ jobs:
 
     - name: Lint
       run: |
-        ansible-lint
+        apt install ansible-lint -y
