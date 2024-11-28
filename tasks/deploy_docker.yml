@@ -34,11 +34,11 @@
 
 - name: Install Docker Engine
   ansible.builtin.apt:
-    name:
+    pkg:
       - docker-ce
       - docker-ce-cli
       - docker-compose-plugin
-    state: latest
+    # state: latest
 
 - name: Ensure Docker service is enabled and started
   ansible.builtin.service:
