@@ -13,15 +13,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set Private Keys
+    - name: Add SSH Key to known_host
       run: |
         mkdir -p ~/.ssh
-        touch ~/.ssh/id_rsa
-        ssh-keyscan -H devops.jala.university >> ~/.ssh/known_hosts
+        ssh-keyscan -H {{ secret.SSH_BASTION_SERVER }} >> ~/.ssh/known_hosts
+        
+    - name: Setup SSH Keys
         echo "${{ secrets.USER_KEY }}" > ~/.ssh/id_rsa
         echo "${{ secrets.BASTION_KEY }}" > atbastionkey
         chmod 600 ~/.ssh/id_rsa
         chmod 600 atbastionkey
-        cat ~/.ssh/id_rsa
-        ssh -o StrictHostKeyChecking=no -i atbastionkey -J at04@devops.jala.university ubuntu@10.27.5.151 pwd
+        ssh -o StrictHostKeyChecking=no -i atbastionkey -J at04@{{ secret.SSH_BASTION_SERVER }} ubuntu@{{ secret.DEV_SERVER_IP }} pwd
         
