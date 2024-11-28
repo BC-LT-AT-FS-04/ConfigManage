@@ -1,0 +1,9 @@
+---
+- name: Provision Servers
+  hosts: all
+  become: true
+  
+  tasks:
+    - name: Docker
+      ansible.builtin.include_tasks:
+        file: tasks/deploy_docker.yml
