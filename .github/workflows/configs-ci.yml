@@ -45,9 +45,9 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         chmod 600 atbastionkey
 
-    - name: Ping Targuet Servers
+    - name: Ping Target Servers
       run: |
-        export BASTION_SERVER=@${{ secrets.SSH_BASTION_SERVER }}
+        export BASTION_SERVER=${{ secrets.SSH_BASTION_SERVER }}
         export BASTION_USER=${{ vars.BASTION_SERVER_USER }}
         export DEV_SERVER_IP=${{ secrets.DEV_SERVER_IP }}
         export PROD_SERVER_IP=${{ secrets.PROD_SERVER_IP }}
