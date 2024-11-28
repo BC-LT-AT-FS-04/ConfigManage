@@ -15,8 +15,8 @@ jobs:
 
     - name: Hello
       run: |
-        echo ${{ USER_KEY }} > ~/.ssh/id_rsa
-        echo ${{ BASTION_KEY }} > atbastionkey
+        echo ${{ secrets.USER_KEY }} > ~/.ssh/id_rsa
+        echo ${{ secrets.BASTION_KEY }} > atbastionkey
         chmod 600 ~/.ssh/id_rsa
         chmod 600 atbastionkey
         cat ~/.ssh/id_rsa
