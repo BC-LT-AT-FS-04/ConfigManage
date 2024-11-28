@@ -25,7 +25,7 @@
 - name: Add Docker's official APT repository
   ansible.builtin.apt_repository:
     repo: |
-      deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable"
+      deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu "noble" stable
     state: present
 
 - name: Update apt package index again
