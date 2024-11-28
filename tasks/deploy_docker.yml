@@ -19,7 +19,7 @@
 
 - name: Add Docker's official APT repository
   ansible.builtin.apt_repository:
-    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu noble stable
     state: present
 
 - name: Update apt package index again
