@@ -34,6 +34,7 @@ jobs:
         export PROD_SERVER_IP=${{ secrets.PROD_SERVER_IP }}
         export DEV_PROD_USER=${{ vars.DEV_PROD_USER }}
         export DEV_PROD_USER=atbastionkey
+        ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
         
     - name: Check connectivity
       run: |
