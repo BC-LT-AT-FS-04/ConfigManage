@@ -24,13 +24,13 @@ jobs:
         echo "${{ secrets.BASTION_KEY }}" > atbastionkey
         chmod 600 ~/.ssh/id_rsa
         chmod 600 atbastionkey
-        export BASTION_SERVER=@${{ secrets.SSH_BASTION_SERVER }}
-        export BASTION_USER=${{ vars.BASTION_SERVER_USER }}
-        export DEV_SERVER_IP=${{ secrets.DEV_SERVER_IP }}
-        export PROD_SERVER_IP=${{ secrets.PROD_SERVER_IP }}
-        export DEV_PROD_USER=${{ vars.DEV_PROD_USER }}
-        export BASTION_KEY=atbastionkey
-        ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
+        # export BASTION_SERVER=@${{ secrets.SSH_BASTION_SERVER }}
+        # export BASTION_USER=${{ vars.BASTION_SERVER_USER }}
+        # export DEV_SERVER_IP=${{ secrets.DEV_SERVER_IP }}
+        # export PROD_SERVER_IP=${{ secrets.PROD_SERVER_IP }}
+        # export DEV_PROD_USER=${{ vars.DEV_PROD_USER }}
+        # export BASTION_KEY=atbastionkey
+        # ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
         # ssh -o StrictHostKeyChecking=no -i atbastionkey -J at04@"${{ secrets.SSH_BASTION_SERVER }}" ubuntu@"${{ secrets.DEV_SERVER_IP }}" pwd
 
     - name: Export Env vars
@@ -40,10 +40,8 @@ jobs:
         export DEV_SERVER_IP=${{ secrets.DEV_SERVER_IP }}
         export PROD_SERVER_IP=${{ secrets.PROD_SERVER_IP }}
         export DEV_PROD_USER=${{ vars.DEV_PROD_USER }}
-        export DEV_PROD_USER=atbastionkey
-        # ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
+        export BASTION_KEY=atbastionkey
         
     - name: Check connectivity
       run: |
-        printenv
-        # ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
+        ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
