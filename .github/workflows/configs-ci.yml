@@ -22,8 +22,5 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         chmod 600 atbastionkey
         cat ~/.ssh/id_rsa
-
-    - name: SSH Conn
-      run: |
         ssh -o StrictHostKeyChecking=no -i atbastionkey -J at04@devops.jala.university ubuntu@10.27.5.151 pwd
         
