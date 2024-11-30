@@ -39,8 +39,8 @@
       - docker-ce-cli
       - docker-compose-plugin
 
-- name: Ensure Docker service is enabled and started
-  ansible.builtin.service:
-    name: docker
-    state: started
-    enabled: true
+# - name: Ensure Docker service is enabled and started
+#   ansible.builtin.service:
+#     name: docker
+#     state: started
+#     enabled: true
