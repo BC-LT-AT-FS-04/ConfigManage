@@ -1,0 +1,14 @@
+name: Configs CI/CD Main
+
+on:
+  push:
+    branches:
+      - main
+      
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+
+    steps:
+        - name: 
+          run: echo "Hello Main!"

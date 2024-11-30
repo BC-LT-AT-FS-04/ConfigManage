@@ -1,8 +1,8 @@
 name: Configs CI/CD
 
-on: 
-  push: 
-    branches: 
+on:
+  pull_request:
+    branches:
       - main
       
 jobs:
