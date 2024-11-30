@@ -10,5 +10,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-        - name: 
-          run: echo "Hello Main!"
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Add SSH Key to known_host
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan -H ${{ secrets.SSH_BASTION_SERVER }} > ~/.ssh/known_hosts
+        
+    - name: Setup SSH Keys
+      run: |
+        echo "${{ secrets.USER_KEY }}" > ~/.ssh/id_rsa
+        echo "${{ secrets.BASTION_KEY }}" > atbastionkey
+        chmod 600 ~/.ssh/id_rsa
+        chmod 600 atbastionkey
+
+    - name: Ping Target Servers
+      run: |
+        export BASTION_SERVER=${{ secrets.SSH_BASTION_SERVER }}
+        export BASTION_USER=${{ vars.BASTION_SERVER_USER }}
+        export DEV_SERVER_IP=${{ secrets.DEV_SERVER_IP }}
+        export PROD_SERVER_IP=${{ secrets.PROD_SERVER_IP }}
+        export DEV_PROD_USER=${{ vars.DEV_PROD_USER }}
+        export BASTION_KEY=atbastionkey
+        ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
+
+    - name: Check playbooks execution
+      run: |
+        export BASTION_SERVER=${{ secrets.SSH_BASTION_SERVER }}
+        export BASTION_USER=${{ vars.BASTION_SERVER_USER }}
+        export DEV_SERVER_IP=${{ secrets.DEV_SERVER_IP }}
+        export PROD_SERVER_IP=${{ secrets.PROD_SERVER_IP }}
+        export DEV_PROD_USER=${{ vars.DEV_PROD_USER }}
+        export BASTION_KEY=atbastionkey
+        ansible-playbook playbook.yml -i host_vars/inventory.yml -e @group_vars/vars.yml
