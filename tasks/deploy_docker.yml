@@ -32,15 +32,15 @@
   ansible.builtin.apt:
     update_cache: true
 
-      # - name: Install Docker Engine
-      # ansible.builtin.apt:
-      # pkg:
-      # - docker-ce
-      # - docker-ce-cli
-      # - docker-compose-plugin
+- name: Install Docker Engine
+  ansible.builtin.apt:
+    pkg:
+      - docker-ce
+      - docker-ce-cli
+      - docker-compose-plugin
 
-      # - name: Ensure Docker service is enabled and started
-      # ansible.builtin.service:
-      # name: docker
-      # state: started
-      # enabled: true
+- name: Ensure Docker service is enabled and started
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true
