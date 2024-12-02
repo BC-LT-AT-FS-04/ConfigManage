@@ -38,7 +38,6 @@
       - docker-ce
       - docker-ce-cli
       - docker-compose-plugin
-    # state: latest
 
 - name: Ensure Docker service is enabled and started
   ansible.builtin.service:
