@@ -3,10 +3,11 @@
   community.docker.docker_image_pull:
     name: sonatype/nexus3
     tag: '3.74.0'
-    platform: dockerhub
+    
 
 - name: Create nexus container
   community.docker.docker_container:
+    name: nexus
     image: sonatype/nexus3:3.74.0
     ports: 
       - 8081:8081
