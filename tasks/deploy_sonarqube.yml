@@ -1,0 +1,29 @@
+---
+- name: Pull SonarQube Docker image
+  community.docker.docker_image:
+    name: sonarqube
+    tag: 9.9.8-community
+    source: pull
+
+- name: Create directories for SonarQube data and persistence
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - /opt/sonarqube/data
+    - /opt/sonarqube/extensions
+    - /opt/sonarqube/logs
+
+- name: Run SonarQube container
+  community.docker.docker_container:
+    name: sonarqube
+    image: sonarqube:9.9.8-community
+    state: started
+    restart_policy: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - "/opt/sonarqube/data:/opt/sonarqube/data"
+      - "/opt/sonarqube/extensions:/opt/sonarqube/extensions"
+      - "/opt/sonarqube/logs:/opt/sonarqube/logs"
