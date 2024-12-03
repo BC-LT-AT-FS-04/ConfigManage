@@ -16,4 +16,3 @@
     - name: Nexus
       ansible.builtin.include_tasks:
         file: tasks/deploy_nexus.yml
-      # Needs to be executed after the docker play
