@@ -1,6 +1,9 @@
+# Variables compartidas por todos los servidores:
 dev_server: "{{ lookup('env', 'DEV_SERVER_IP') }}"
 prod_server: "{{ lookup('env', 'PROD_SERVER_IP') }}"
 bastion_server: "{{ lookup('env', 'BASTION_SERVER') }}"
 bastion_user: "{{ lookup('env', 'BASTION_USER') }}"
 bastion_key: "{{ lookup('env', 'BASTION_KEY') }}"
 dev_prod_user: "{{ lookup('env', 'DEV_PROD_USER') }}"
+
+# lookup('env', ...) asegura que no tengamos información sensible en el repo y sea manejada desde el CI/CD
