@@ -1,2 +1,5 @@
 **/.env
-**/.env.*
+**/.env.
+
+## Ansible Local Inventory
+**/host_vars/.inventory-local.yml
