@@ -7,7 +7,7 @@
     - name: Docker
       ansible.builtin.include_tasks:
         file: tasks/deploy_docker.yml
-        
+
 - name: Provision Dev Server
   hosts: development
   become: true
