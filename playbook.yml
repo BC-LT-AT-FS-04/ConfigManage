@@ -13,7 +13,6 @@
   become: true
 
   tasks:
-    tasks:
     - name: Nexus
       ansible.builtin.include_tasks:
         file: tasks/deploy_nexus.yml
