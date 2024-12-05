@@ -14,5 +14,6 @@ jobs:
       run: |
         echo '{"insecure-registries":["registry.at04.devops.jala.university"]}' | sudo tee /etc/docker/daemon.json
         sudo systemctl restart docker
+        echo "admin" | docker login registry.at04.devops.jala.university --username admin --password-stdin
 
 
