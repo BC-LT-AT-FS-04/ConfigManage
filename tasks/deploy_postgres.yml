@@ -25,5 +25,4 @@
       PGDATA: /var/lib/postgresql/data/pgdata
     networks:
       - name: sonarnet
-  when:
-    - network_status.changed
+
