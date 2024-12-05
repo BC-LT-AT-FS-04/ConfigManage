@@ -3,7 +3,8 @@
   community.docker.docker_network:
     name: sonarnet
     state: present
-    
+  register: network_status
+
 - name: Create volume for PostgreSQL data
   community.docker.docker_volume:
     name: pgdata
@@ -24,3 +25,6 @@
       PGDATA: /var/lib/postgresql/data/pgdata
     networks:
       - name: sonarnet
+  when: 
+    - network_status is defined
+    - network_status.changed or (not network_status.changed)
