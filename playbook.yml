@@ -7,12 +7,17 @@
     - name: Docker
       ansible.builtin.include_tasks:
         file: tasks/deploy_docker.yml
-
+        
 - name: Provision Dev Server
   hosts: development
   become: true
 
   tasks:
+    tasks:
+    - name: Nexus
+      ansible.builtin.include_tasks:
+        file: tasks/deploy_nexus.yml
+        
     - name: PostgreSQL
       ansible.builtin.include_tasks:
         file: tasks/deploy_postgres.yml
