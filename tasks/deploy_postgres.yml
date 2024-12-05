@@ -12,16 +12,16 @@
 
 - name: Start PostgreSQL container
   community.docker.docker_container:
-    name: db-server
+    name: "{{ pg_db_cont_name }}"
     image: postgres:13.18
     state: started
     restart_policy: always
     volumes:
       - pgdata:/var/lib/postgresql/data
     env:
-      POSTGRES_USER: sonar
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: sonardb
+      POSTGRES_USER: "{{ pg_db_user }}"
+      POSTGRES_PASSWORD: "{{ pg_db_password }}"
+      POSTGRES_DB: "{{ pg_db_name }}"
       PGDATA: /var/lib/postgresql/data/pgdata
     networks:
       - name: sonarnet
