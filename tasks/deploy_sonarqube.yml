@@ -1,0 +1,35 @@
+---
+- name: Create volume for SonarQube data
+  community.docker.docker_volume:
+    name: sonarqube_data
+    state: present
+
+- name: Create volume for SonarQube extensions
+  community.docker.docker_volume:
+    name: sonarqube_extensions
+    state: present
+
+- name: Create volume for SonarQube logs
+  community.docker.docker_volume:
+    name: sonarqube_logs
+    state: present
+
+
+- name: Start SonarQube container
+  community.docker.docker_container:
+    name: sonarqube
+    image: sonarqube:10.7.0-community
+    state: started
+    restart_policy: always
+    ports:
+      - "9000:9000"
+    env:
+      SONAR_JDBC_URL: jdbc:postgresql://"{{ pg_db_cont_name }}"/"{{ pg_db_name }}"
+      SONAR_JDBC_USERNAME: "{{ pg_db_user }}"
+      SONAR_JDBC_PASSWORD: "{{ pg_db_password }}"
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+    networks:
+      - name: sonarnet
