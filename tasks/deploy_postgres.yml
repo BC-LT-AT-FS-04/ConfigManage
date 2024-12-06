@@ -3,7 +3,6 @@
   community.docker.docker_network:
     name: sonarnet
     state: present
-  register: network_status
 
 - name: Create volume for PostgreSQL data
   community.docker.docker_volume:
@@ -16,6 +15,8 @@
     image: postgres:13.18
     state: started
     restart_policy: always
+    ports:
+      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     env:
