@@ -13,10 +13,6 @@
   become: true
 
   tasks:
-    - name: Nexus
-      ansible.builtin.include_tasks:
-        file: tasks/deploy_nexus.yml
-        
     - name: PostgreSQL
       ansible.builtin.include_tasks:
         file: tasks/deploy_postgres.yml
@@ -24,3 +20,7 @@
     - name: SonarQube
       ansible.builtin.include_tasks:
         file: tasks/deploy_sonarqube.yml
+
+    - name: Nexus
+      ansible.builtin.include_tasks:
+        file: tasks/deploy_nexus.yml
