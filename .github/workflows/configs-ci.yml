@@ -4,6 +4,18 @@ on:
   pull_request:
     branches:
       - main
+
+env:
+  BASTION_SERVER: ${{ secrets.SSH_BASTION_SERVER }}
+  BASTION_USER: ${{ vars.BASTION_SERVER_USER }}
+  DEV_SERVER_IP: ${{ secrets.DEV_SERVER_IP }}
+  PROD_SERVER_IP: ${{ secrets.PROD_SERVER_IP }}
+  DEV_PROD_USER: ${{ vars.DEV_PROD_USER }}
+  BASTION_KEY: atbastionkey
+  PG_DB_CONT_NAME: ${{ vars.PG_DB_CONT_NAME }}
+  PG_DB_USER: ${{ vars.PG_DB_USER }}
+  PG_DB_NAME: ${{ secrets.PG_DB_NAME }}
+  PG_DB_PASSWORD: ${{ secrets.PG_DB_PASSWORD }}
       
 jobs:
   lint:
@@ -47,20 +59,8 @@ jobs:
 
     - name: Ping Target Servers
       run: |
-        export BASTION_SERVER=${{ secrets.SSH_BASTION_SERVER }}
-        export BASTION_USER=${{ vars.BASTION_SERVER_USER }}
-        export DEV_SERVER_IP=${{ secrets.DEV_SERVER_IP }}
-        export PROD_SERVER_IP=${{ secrets.PROD_SERVER_IP }}
-        export DEV_PROD_USER=${{ vars.DEV_PROD_USER }}
-        export BASTION_KEY=atbastionkey
         ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
 
     - name: Check playbooks execution
       run: |
-        export BASTION_SERVER=${{ secrets.SSH_BASTION_SERVER }}
-        export BASTION_USER=${{ vars.BASTION_SERVER_USER }}
-        export DEV_SERVER_IP=${{ secrets.DEV_SERVER_IP }}
-        export PROD_SERVER_IP=${{ secrets.PROD_SERVER_IP }}
-        export DEV_PROD_USER=${{ vars.DEV_PROD_USER }}
-        export BASTION_KEY=atbastionkey
         ansible-playbook playbook.yml -i host_vars/inventory.yml -e @group_vars/vars.yml --check
