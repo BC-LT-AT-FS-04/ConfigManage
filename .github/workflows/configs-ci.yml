@@ -16,6 +16,8 @@ env:
   PG_DB_USER: ${{ vars.PG_DB_USER }}
   PG_DB_NAME: ${{ secrets.PG_DB_NAME }}
   PG_DB_PASSWORD: ${{ secrets.PG_DB_PASSWORD }}
+  CONTAINER_REGISTRY_USER: ${{ vars.CONTAINER_REGISTRY_USER }}
+  CONTAINER_REGISTRY_PASSWORD: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
       
 jobs:
   lint:
@@ -56,6 +58,10 @@ jobs:
         echo "${{ secrets.BASTION_KEY }}" > atbastionkey
         chmod 600 ~/.ssh/id_rsa
         chmod 600 atbastionkey
+
+    - name: Docker Login
+      run: |
+        echo "$CONTAINER_REGISTRY_PASSWORD" | docker login registry.at04.devops.jala.university -u $CONTAINER_REGISTRY_USER --password-stdin
 
     - name: Ping Target Servers
       run: |
