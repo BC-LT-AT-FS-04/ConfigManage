@@ -43,4 +43,8 @@ jobs:
         export PROD_SERVER_IP=${{ secrets.PROD_SERVER_IP }}
         export DEV_PROD_USER=${{ vars.DEV_PROD_USER }}
         export BASTION_KEY=atbastionkey
+        export PG_DB_CONT_NAME=${{ vars.PG_DB_CONT_NAME }}
+        export PG_DB_USER=${{ vars.PG_DB_USER }}
+        export PG_DB_NAME=${{ secrets.PG_DB_NAME }}
+        export PG_DB_PASSWORD=${{ secrets.PG_DB_PASSWORD }}
         ansible-playbook playbook.yml -i host_vars/inventory.yml -e @group_vars/vars.yml
