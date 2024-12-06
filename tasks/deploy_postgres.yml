@@ -1,0 +1,26 @@
+---
+- name: Create Docker network
+  community.docker.docker_network:
+    name: sonarnet
+    state: present
+
+- name: Create volume for PostgreSQL data
+  community.docker.docker_volume:
+    name: pgdata
+    state: present
+
+- name: Start PostgreSQL container
+  community.docker.docker_container:
+    name: "{{ pg_db_cont_name }}"
+    image: postgres:13.18
+    state: started
+    restart_policy: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    env:
+      POSTGRES_USER: "{{ pg_db_user }}"
+      POSTGRES_PASSWORD: "{{ pg_db_password }}"
+      POSTGRES_DB: "{{ pg_db_name }}"
+      PGDATA: /var/lib/postgresql/data/pgdata
+    networks:
+      - name: sonarnet

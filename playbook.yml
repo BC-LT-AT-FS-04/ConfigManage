@@ -8,11 +8,19 @@
       ansible.builtin.include_tasks:
         file: tasks/deploy_docker.yml
 
-- name: Provision dev server
+- name: Provision Dev Server
   hosts: development
   become: true
-  
+
   tasks:
+    - name: PostgreSQL
+      ansible.builtin.include_tasks:
+        file: tasks/deploy_postgres.yml
+
+    - name: SonarQube
+      ansible.builtin.include_tasks:
+        file: tasks/deploy_sonarqube.yml
+
     - name: Nexus
       ansible.builtin.include_tasks:
         file: tasks/deploy_nexus.yml
