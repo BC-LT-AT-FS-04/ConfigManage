@@ -61,7 +61,7 @@ jobs:
 
     - name: Check SSL certificate for Docker registry
       run: |
-        curl -v https://registry.at04.devops.jala.university/v2/
+        curl -v registry.at04.devops.jala.university
         
     - name: Docker Login
       run: |
