@@ -59,9 +59,17 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         chmod 600 atbastionkey
 
+    - name: Check SSL certificate for Docker registry
+      run: |
+        curl -v https://registry.at04.devops.jala.university/v2/
+        
     - name: Docker Login
       run: |
-        echo "$CONTAINER_REGISTRY_PASSWORD" | docker login registry.at04.devops.jala.university -u $CONTAINER_REGISTRY_USER --password-stdin
+        echo "${{ secrets.CONTAINER_REGISTRY_PASSWORD }}" | docker login registry.at04.devops.jala.university -u ${{ vars.CONTAINER_REGISTRY_USER }} --password-stdin
+    
+    - name: Docker Logout
+      run: |
+        docker logout registry.at04.devops.jala.university
 
     - name: Ping Target Servers
       run: |
