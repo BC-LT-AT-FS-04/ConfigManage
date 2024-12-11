@@ -7,20 +7,33 @@
     - name: Docker
       ansible.builtin.include_tasks:
         file: tasks/deploy_docker.yml
-
-- name: Provision Dev Server
-  hosts: development
-  become: true
-
-  tasks:
+    
+    - name: Add Insecure Registry
+      ansible.builtin.include_tasks:
+        file: tasks/add_insecure-registry.yml
+    
     - name: PostgreSQL
       ansible.builtin.include_tasks:
         file: tasks/deploy_postgres.yml
+      when: "'development' in group_names"
 
     - name: SonarQube
       ansible.builtin.include_tasks:
         file: tasks/deploy_sonarqube.yml
+      when: "'development' in group_names"
 
     - name: Nexus
       ansible.builtin.include_tasks:
         file: tasks/deploy_nexus.yml
+      when: "'development' in group_names"
+    
+    - name: Deploy Converter DB server in Development
+      ansible.builtin.include_tasks:
+        file: tasks/deploy_converter_db.yml
+    
+  handlers:
+  - name: Restart Docker
+    ansible.builtin.service:
+      name: docker
+      state: restarted
+

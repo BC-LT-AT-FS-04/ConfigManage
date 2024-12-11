@@ -1,0 +1,39 @@
+
+services:
+  converterdb:
+    image: postgres:15.3
+    container_name: converterdb
+    restart: always
+    environment:
+      POSTGRES_USER: {{ converter_db_user }}
+      POSTGRES_PASSWORD: {{ converter_db_password }}
+      POSTGRES_DB: {{ converter_db_name }}
+    volumes:
+      - converter_db_data:/var/lib/postgresql/data
+    networks:
+      - converternet
+  
+  pgadmin4:
+    image: elestio/pgadmin:REL-8_12
+    container_name: pgadmin4
+    depends_on:
+      - converterdb
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: {{ pgadmin_email }}
+      PGADMIN_DEFAULT_PASSWORD: {{ pgadmin_password }}
+      PGADMIN_LISTEN_PORT: {{ pgadmin_port }}
+    ports:
+      - "8080:8080"
+    volumes:
+      - pgdata:/pgadmin4
+    networks:
+      - converternet
+
+volumes:
+  converter_db_data:
+  pgdata:
+
+networks:
+  converternet:
+    name: converternet
