@@ -3,7 +3,7 @@
   ansible.builtin.file:
     path: /opt/converter
     state: directory
-  mode: '0644'
+    mode: '0644'
 
 - name: Add insecure registry to Docker daemon configuration
   ansible.builtin.template:
