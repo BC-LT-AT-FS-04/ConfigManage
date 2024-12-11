@@ -12,9 +12,9 @@
       {
         "insecure-registries": ["registry.at04.devops.jala.university"]
       }
-    owner: root
-    group: root
-    mode: '0644'
+  owner: root
+  group: root
+  mode: '0644'
 
 - name: Restart Docker service to apply changes
   ansible.builtin.service:
