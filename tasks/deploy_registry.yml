@@ -35,3 +35,5 @@
   args:
     executable: /bin/bash
   when: docker_login_result is succeeded
+  changed_when: false
+
