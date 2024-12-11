@@ -1,0 +1,21 @@
+---
+- name: Creates directory
+  ansible.builtin.file:
+    path: /opt/converter
+    state: directory
+    mode: '0644'
+
+- name: Copying Template
+  ansible.builtin.template:
+    src: tasks/templates/dev-converterdb.j2
+    dest: /opt/converter/compose.yml
+    mode: '0644'
+
+- name: Deploy DB Server
+  ansible.builtin.command: >
+    sudo docker compose -f /opt/converter/compose.yml up -d
+  register: output
+
+- name: Show results
+  ansible.builtin.debug:
+    var: output
