@@ -1,0 +1,41 @@
+---
+- name: Create /etc/docker directory if it doesn't exist
+  ansible.builtin.file:
+    path: /etc/docker
+    state: directory
+    mode: '0755'
+
+- name: Add insecure registry to daemon.json
+  ansible.builtin.copy:
+    dest: /etc/docker/daemon.json
+    content: |
+      {
+        "insecure-registries": ["registry.at04.devops.jala.university"]
+      }
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Restart Docker service to apply changes
+  ansible.builtin.service:
+    name: docker
+    state: restarted
+    enabled: true
+
+- name: Test Docker login
+  ansible.builtin.shell: |
+    echo "{{ lookup('env', 'CONTAINER_REGISTRY_PASSWORD') }}" | \
+    docker login registry.at04.devops.jala.university -u "{{ lookup('env', 'CONTAINER_REGISTRY_USER') }}" --password-stdin
+  args:
+    executable: /bin/bash
+  register: docker_login_result
+
+- name: Ensure Docker login was successful
+  ansible.builtin.debug:
+    msg: "Docker login succeeded!"
+  when: docker_login_result.rc == 0
+
+- name: Docker logout after successful login
+  ansible.builtin.shell: |
+    docker logout registry.at04.devops.jala.university
+  when: docker_login_result.rc == 0

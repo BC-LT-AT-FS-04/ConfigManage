@@ -7,6 +7,10 @@
     - name: Docker
       ansible.builtin.include_tasks:
         file: tasks/deploy_docker.yml
+    
+    - name: Configure Docker insecure registry
+      ansible.builtin.include_tasks:
+        file: tasks/deploy_registry.yml
 
 - name: Provision Dev Server
   hosts: development
