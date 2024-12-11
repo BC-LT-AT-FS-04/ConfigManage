@@ -20,5 +20,4 @@
     name: ml-service
     image: "{{ container_registry_url }}/mlservice:{{ mlservice_version }}"
     ports:
-      -  5100:5000
-    
+      - 5100:5000
