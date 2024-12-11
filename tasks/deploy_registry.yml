@@ -22,20 +22,16 @@
     state: restarted
     enabled: true
 
-- name: Test Docker login
-  ansible.builtin.shell: |
-    echo "{{ lookup('env', 'CONTAINER_REGISTRY_PASSWORD') }}" | \
-    docker login registry.at04.devops.jala.university -u "{{ lookup('env', 'CONTAINER_REGISTRY_USER') }}" --password-stdin
-  args:
-    executable: /bin/bash
+- name: Login to Docker registry
+  community.docker.docker_login:
+    registry_url: registry.at04.devops.jala.university
+    username: "{{ lookup('env', 'CONTAINER_REGISTRY_USER') }}"
+    password: "{{ lookup('env', 'CONTAINER_REGISTRY_PASSWORD') }}"
   register: docker_login_result
-
-- name: Ensure Docker login was successful
-  ansible.builtin.debug:
-    msg: "Docker login succeeded!"
-  when: docker_login_result.rc == 0
 
 - name: Docker logout after successful login
   ansible.builtin.shell: |
     docker logout registry.at04.devops.jala.university
-  when: docker_login_result.rc == 0
+  args:
+    executable: /bin/bash
+  when: docker_login_result is succeeded
