@@ -3,11 +3,13 @@
   ansible.builtin.file:
     path: /opt/converter
     state: directory
+  mode: '0644'
 
 - name: Add insecure registry to Docker daemon configuration
   ansible.builtin.template:
     src: tasks/templates/dev-converterdb.j2
     dest: /opt/converter/compose.yml
+  mode: '0644'
 
 - name: Deploy DB Server
   ansible.builtin.command: >
