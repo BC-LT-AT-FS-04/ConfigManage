@@ -9,6 +9,15 @@ pg_db_user: "{{ lookup('env', 'PG_DB_USER') }}"
 pg_db_password: "{{ lookup('env', 'PG_DB_PASSWORD') }}"
 pg_db_name: "{{ lookup('env', 'PG_DB_NAME') }}"
 pg_db_cont_name: "{{ lookup('env', 'PG_DB_CONT_NAME') }}"
+<<<<<<< HEAD
 container_registry_url: "{{ lookup('env', 'CONTAINER_REGISTRY_URL') }}"
+=======
+converter_db_user: "{{ lookup('env', 'CONVERTER_DB_USER') }}"
+converter_db_password: "{{ lookup('env', 'CONVERTER_DB_PASSWORD') }}"
+converter_db_name: "{{ lookup('env', 'CONVERTER_DB_NAME') }}"
+pgadmin_email: "{{ lookup('env', 'PGADMIN_EMAIL') }}"
+pgadmin_password: "{{ lookup('env', 'PGADMIN_PASSWORD') }}"
+pgadmin_port: "{{ lookup('env', 'PGADMIN_PORT') }}"
+>>>>>>> f50cc362c8707632716fff52087cb03769f0df19
 
 # lookup('env', ...) makes sure that we don't have sensitive data in the repo and it's managed by the CI/CD
