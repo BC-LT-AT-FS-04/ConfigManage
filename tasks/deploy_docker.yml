@@ -50,14 +50,17 @@
     dest: /etc/docker/daemon.json
     content: |
       {
-        "insecure-registries":["registry.at04.devops.jala.university"]
+        "insecure-registries":["{{ container_registry_url }}"]
       }
     owner: root
     group: root
     mode: '0644'
 
-- name: Apply changes to Docker daemon
-  ansible.builtin.shell: |
-    systemctl daemon-reexec
-    systemctl restart docker
+- name: Reload systemd daemon
+  ansible.builtin.systemd:
+    daemon_reload: true
 
+- name: Restart Docker
+  ansible.builtin.systemd:
+    name: "docker"
+    state: "restarted"
