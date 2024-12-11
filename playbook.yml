@@ -8,10 +8,6 @@
       ansible.builtin.include_tasks:
         file: tasks/deploy_docker.yml
     
-    - name: Add Insecure Registry
-      ansible.builtin.include_tasks:
-        file: tasks/add_insecure-registry.yml
-    
     - name: PostgreSQL
       ansible.builtin.include_tasks:
         file: tasks/deploy_postgres.yml
