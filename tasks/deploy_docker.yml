@@ -44,3 +44,20 @@
     name: docker
     state: started
     enabled: true
+
+- name: Add insecure registries to Docker daemon
+  ansible.builtin.copy:
+    dest: /etc/docker/daemon.json
+    content: |
+      {
+        "insecure-registries":["registry.at04.devops.jala.university"]
+      }
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Apply changes to Docker daemon
+  ansible.builtin.shell: |
+    systemctl daemon-reexec
+    systemctl restart docker
+
