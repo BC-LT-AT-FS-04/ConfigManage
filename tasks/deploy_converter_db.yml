@@ -5,11 +5,11 @@
     state: directory
     mode: '0644'
 
-- name: Add insecure registry to Docker daemon configuration
+- name: Copying Template
   ansible.builtin.template:
     src: tasks/templates/dev-converterdb.j2
     dest: /opt/converter/compose.yml
-  mode: '0644'
+    mode: '0644'
 
 - name: Deploy DB Server
   ansible.builtin.command: >
