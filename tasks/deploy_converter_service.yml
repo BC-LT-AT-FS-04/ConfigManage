@@ -19,10 +19,12 @@
   community.docker.docker_container:
     name: converter-service
     image: "{{ container_registry_url }}/converterservice:{{ converter_service_version }}"
+    state: started
     ports:
       - 9090:9090
     restart_policy: always
     env:
+      DB_URL: "postgresql://{{ converter_db_user }}:{{ converter_db_password }}@converterdb:5432/{{ converter_db_name }}"
       DB_HOST: "converterdb"
       DB_PORT: "5432"
       DB_USER: "{{ converter_db_user }}"
