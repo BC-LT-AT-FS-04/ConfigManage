@@ -60,10 +60,10 @@ jobs:
     - name: Setup SSH Keys
       run: |
         echo "${{ secrets.USER_KEY }}" > ~/.ssh/id_rsa
-        echo "${{ secrets.BASTION_KEY }}" > atbastionkey
+        echo "${{ secrets.BASTION_KEY }}" > $BASTION_KEY
         chmod 600 ~/.ssh/id_rsa
-        chmod 600 atbastionkey
-
+        chmod 600 $BASTION_KEY
+        
     - name: Ping Target Servers
       run: |
         ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
