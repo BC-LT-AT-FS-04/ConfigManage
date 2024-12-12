@@ -16,31 +16,37 @@ env:
   PG_DB_USER: ${{ vars.PG_DB_USER }}
   PG_DB_NAME: ${{ secrets.PG_DB_NAME }}
   PG_DB_PASSWORD: ${{ secrets.PG_DB_PASSWORD }}
+  CONVERTER_DB_USER: ${{ vars.CONVERTER_DB_USER}}
+  CONVERTER_DB_PASSWORD: ${{ secrets.CONVERTER_DB_PASSWORD}}
+  CONVERTER_DB_NAME: ${{ secrets.CONVERTER_DB_NAME}}
+  PGADMIN_EMAIL: ${{ vars.PGADMIN_EMAIL}}
+  PGADMIN_PASSWORD: ${{ secrets.PGADMIN_PASSWORD}}
+  PGADMIN_PORT: ${{ vars.PGADMIN_PORT}}
 
 jobs:
   apply:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Add SSH Key to known_host
-      run: |
-        mkdir -p ~/.ssh
-        ssh-keyscan -H ${{ secrets.SSH_BASTION_SERVER }} > ~/.ssh/known_hosts
-        
-    - name: Setup SSH Keys
-      run: |
-        echo "${{ secrets.USER_KEY }}" > ~/.ssh/id_rsa
-        echo "${{ secrets.BASTION_KEY }}" > atbastionkey
-        chmod 600 ~/.ssh/id_rsa
-        chmod 600 atbastionkey
+      - name: Add SSH Key to known_host
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.SSH_BASTION_SERVER }} > ~/.ssh/known_hosts
 
-    - name: Ping Target Servers
-      run: |
-        ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
+      - name: Setup SSH Keys
+        run: |
+          echo "${{ secrets.USER_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.BASTION_KEY }}" > atbastionkey
+          chmod 600 ~/.ssh/id_rsa
+          chmod 600 atbastionkey
 
-    - name: Provision Servers
-      run: |
-        ansible-playbook playbook.yml -i host_vars/inventory.yml -e @group_vars/vars.yml
+      - name: Ping Target Servers
+        run: |
+          ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
+
+      - name: Provision Servers
+        run: |
+          ansible-playbook playbook.yml -i host_vars/inventory.yml -e @group_vars/vars.yml
