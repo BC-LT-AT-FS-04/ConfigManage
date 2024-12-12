@@ -16,10 +16,17 @@ env:
   PG_DB_USER: ${{ vars.PG_DB_USER }}
   PG_DB_NAME: ${{ secrets.PG_DB_NAME }}
   PG_DB_PASSWORD: ${{ secrets.PG_DB_PASSWORD }}
+  CONVERTER_DB_USER: ${{ vars.CONVERTER_DB_USER}}
+  CONVERTER_DB_PASSWORD: ${{ secrets.CONVERTER_DB_PASSWORD}}
+  CONVERTER_DB_NAME: ${{ secrets.CONVERTER_DB_NAME}}
+  PGADMIN_EMAIL: ${{ vars.PGADMIN_EMAIL}}
+  PGADMIN_PASSWORD: ${{ secrets.PGADMIN_PASSWORD}}
+  PGADMIN_PORT: ${{ vars.PGADMIN_PORT}}
+  CONTAINER_REGISTRY_URL: ${{ vars.CONTAINER_REGISTRY_URL }}
       
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - name: Checkout code
@@ -39,7 +46,7 @@ jobs:
       run: ansible-lint .
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - name: Checkout code
@@ -53,10 +60,10 @@ jobs:
     - name: Setup SSH Keys
       run: |
         echo "${{ secrets.USER_KEY }}" > ~/.ssh/id_rsa
-        echo "${{ secrets.BASTION_KEY }}" > atbastionkey
+        echo "${{ secrets.BASTION_KEY }}" > $BASTION_KEY
         chmod 600 ~/.ssh/id_rsa
-        chmod 600 atbastionkey
-
+        chmod 600 $BASTION_KEY
+        
     - name: Ping Target Servers
       run: |
         ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
