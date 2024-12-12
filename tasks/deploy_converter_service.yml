@@ -1,0 +1,38 @@
+---
+- name: Log Into Private Registry
+  community.docker.docker_login:
+    registry_url: "{{ container_registry_url }}"
+    username: "{{ container_registry_user }}"
+    password: "{{ container_registry_password }}"
+
+- name: Pull Converter Service Image
+  community.docker.docker_image_pull:
+    name: "{{ container_registry_url }}/converterservice"
+    tag: "{{ converter_service_version }}"
+
+- name: Remove Previous ConverterService Container
+  community.docker.docker_container:
+    name: converter-service
+    state: absent
+
+- name: Create ConverterService Container
+  community.docker.docker_container:
+    name: converter-service
+    image: "{{ container_registry_url }}/converterservice:{{ converter_service_version }}"
+    state: started
+    ports:
+      - 9090:9090
+    restart_policy: always
+    env:
+      DB_USER: "{{ converter_db_user }}"
+      DB_PASSWORD: "{{ converter_db_password }}"
+      DB_NAME: "{{ converter_db_name }}"
+      FLASK_ENV: development
+      DB_URL: "{{ converter_db_uri }}"
+    networks:
+      - name: converternet
+
+- name: Log out of private registry
+  community.docker.docker_login:
+    registry_url: "{{ container_registry_url }}"
+    state: absent
