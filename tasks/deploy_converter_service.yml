@@ -31,3 +31,8 @@
       DB_URL: "{{ converter_db_uri }}"
     networks:
       - name: converternet
+
+- name: Log out of private registry
+  community.docker.docker_login:
+    registry_url: "{{ container_registry_url }}"
+    state: absent
