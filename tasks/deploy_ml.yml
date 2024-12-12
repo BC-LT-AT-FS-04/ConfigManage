@@ -22,3 +22,8 @@
     ports:
       - 5100:5000
     restart_policy: always
+
+- name: Log out of private registry
+  community.docker.docker_login:
+    registry_url: "{{ container_registry_url }}"
+    state: absent
