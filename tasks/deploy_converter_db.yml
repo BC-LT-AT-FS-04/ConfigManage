@@ -15,6 +15,7 @@
   ansible.builtin.command: >
     sudo docker compose -f /opt/converter/compose.yml up -d
   register: output
+  changed_when: output.rc != 0
 
 - name: Show results
   ansible.builtin.debug:

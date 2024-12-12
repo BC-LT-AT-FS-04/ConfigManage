@@ -52,13 +52,7 @@
       {
         "insecure-registries":["{{ container_registry_url }}"]
       }
-    owner: root
-    group: root
     mode: '0644'
-
-- name: Reload systemd daemon
-  ansible.builtin.systemd:
-    daemon_reload: true
 
 - name: Restart Docker
   ansible.builtin.systemd:
