@@ -58,3 +58,7 @@
   ansible.builtin.systemd:
     name: "docker"
     state: "restarted"
+
+- name: Pause for 10 secs
+  ansible.builtin.pause:
+    seconds: 10
