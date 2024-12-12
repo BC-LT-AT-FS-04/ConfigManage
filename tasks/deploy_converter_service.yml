@@ -24,11 +24,10 @@
       - 9090:9090
     restart_policy: always
     env:
-      DB_URL: "postgresql://{{ converter_db_user }}:{{ converter_db_password }}@converterdb:5432/{{ converter_db_name }}"
-      DB_HOST: "converterdb"
-      DB_PORT: "5432"
       DB_USER: "{{ converter_db_user }}"
       DB_PASSWORD: "{{ converter_db_password }}"
       DB_NAME: "{{ converter_db_name }}"
+      FLASK_ENV: development
+      DB_URL: "{{ converter_db_uri }}"
     networks:
       - name: converternet
