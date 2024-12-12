@@ -28,8 +28,8 @@
         file: tasks/deploy_converter_db.yml
     
   handlers:
-  - name: Restart Docker
-    ansible.builtin.service:
-      name: docker
-      state: restarted
+    - name: Restart Docker
+      ansible.builtin.service:
+        name: docker
+        state: restarted
 
