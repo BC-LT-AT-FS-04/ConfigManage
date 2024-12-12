@@ -1,0 +1,8 @@
+- name: Provision Dev Server 
+  hosts: production
+  become: true
+
+  tasks:
+    - name: ML Service
+      ansible.builtin.include_tasks:
+        file: tasks/deploy_ml.yml

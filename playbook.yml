@@ -2,12 +2,12 @@
 - name: Provision Servers
   hosts: all
   become: true
-  
+
   tasks:
     - name: Docker
       ansible.builtin.include_tasks:
         file: tasks/deploy_docker.yml
-    
+
     - name: PostgreSQL
       ansible.builtin.include_tasks:
         file: tasks/deploy_postgres.yml
@@ -22,7 +22,7 @@
       ansible.builtin.include_tasks:
         file: tasks/deploy_nexus.yml
       when: "'development' in group_names"
-    
+
     - name: Deploy Converter DB server in Development
       ansible.builtin.include_tasks:
         file: tasks/deploy_converter_db.yml
