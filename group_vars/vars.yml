@@ -18,7 +18,6 @@ pgadmin_password: "{{ lookup('env', 'PGADMIN_PASSWORD') }}"
 pgadmin_port: "{{ lookup('env', 'PGADMIN_PORT') }}"
 container_registry_user: "{{ lookup('env', 'CONTAINER_REGISTRY_USER') }}"
 container_registry_password: "{{ lookup('env', 'CONTAINER_REGISTRY_PASSWORD') }}"
-container_registry_url: "{{ lookup('env', 'CONTAINER_REGISTRY_URL') }}"
 mlservice_version: "{{ lookup('env', 'MLSERVICE_VERSION') }}"
 
 # lookup('env', ...) makes sure that we don't have sensitive data in the repo and it's managed by the CI/CD
