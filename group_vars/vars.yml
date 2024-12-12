@@ -21,5 +21,6 @@ container_registry_password: "{{ lookup('env', 'CONTAINER_REGISTRY_PASSWORD') }}
 container_registry_url: "{{ lookup('env', 'CONTAINER_REGISTRY_URL') }}"
 converter_service_version: "{{ lookup('env', 'CONVERTER_SERVICE_VERSION') }}"
 converter_db_uri: "postgresql://{{ converter_db_user }}:{{ converter_db_password }}@{{ converter_db_server }}/{{ converter_db_name }}"
+mlservice_version: "{{ lookup('env', 'MLSERVICE_VERSION') }}"
 
 # lookup('env', ...) makes sure that we don't have sensitive data in the repo and it's managed by the CI/CD

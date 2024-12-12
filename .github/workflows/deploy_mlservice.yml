@@ -1,0 +1,43 @@
+name: Deploy ML Service to development server
+
+on: workflow_dispatch
+
+env:
+  BASTION_SERVER: ${{ secrets.SSH_BASTION_SERVER }}
+  BASTION_USER: ${{ vars.BASTION_SERVER_USER }}
+  DEV_SERVER_IP: ${{ secrets.DEV_SERVER_IP }}
+  PROD_SERVER_IP: ${{ secrets.PROD_SERVER_IP }}
+  DEV_PROD_USER: ${{ vars.DEV_PROD_USER }}
+  BASTION_KEY: atbastionkey
+  CONTAINER_REGISTRY_URL: ${{ vars.CONTAINER_REGISTRY_URL }}
+  CONTAINER_REGISTRY_USER: ${{ vars.CONTAINER_REGISTRY_USER }}
+  CONTAINER_REGISTRY_PASSWORD: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
+  MLSERVICE_VERSION: ${{ vars.MLSERVICE_VERSION }}
+
+jobs:
+  ml-deployment:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Add SSH Key to known_host
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan -H ${{ secrets.SSH_BASTION_SERVER }} > ~/.ssh/known_hosts
+        
+    - name: Setup SSH Keys
+      run: |
+        echo "${{ secrets.USER_KEY }}" > ~/.ssh/id_rsa
+        echo "${{ secrets.BASTION_KEY }}" > atbastionkey
+        chmod 600 ~/.ssh/id_rsa
+        chmod 600 atbastionkey
+
+    - name: Ping Target Servers
+      run: |
+        ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
+
+    - name: Provision Servers
+      run: |
+        ansible-playbook ml_deployment.yml -i host_vars/inventory.yml -e @group_vars/vars.yml
