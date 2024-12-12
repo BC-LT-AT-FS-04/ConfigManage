@@ -17,6 +17,12 @@ pg_db_user: "{{ lookup('env', 'PG_DB_USER') }}"
 pg_db_password: "{{ lookup('env', 'PG_DB_PASSWORD') }}"
 pg_db_name: "{{ lookup('env', 'PG_DB_NAME') }}"
 pg_db_cont_name: "{{ lookup('env', 'PG_DB_CONT_NAME') }}"
+converter_db_user: "{{ lookup('env', 'CONVERTER_DB_USER') }}"
+converter_db_password: "{{ lookup('env', 'CONVERTER_DB_PASSWORD') }}"
+converter_db_name: "{{ lookup('env', 'CONVERTER_DB_NAME') }}"
+pgadmin_email: "{{ lookup('env', 'PGADMIN_EMAIL') }}"
+pgadmin_password: "{{ lookup('env', 'PGADMIN_PASSWORD') }}"
+pgadmin_port: "{{ lookup('env', 'PGADMIN_PORT') }}"
 
 # lookup('env', ...) makes sure that we don't have sensitive data in the repo and it's managed by the CI/CD
 >>>>>>> 68e8321b2e3205238ea2c7899e4ad0ae31371e2b
