@@ -21,3 +21,4 @@
     image: "{{ container_registry_url }}/mlservice:{{ mlservice_version }}"
     ports:
       - 5100:5000
+    restart_policy: always
