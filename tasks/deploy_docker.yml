@@ -44,3 +44,17 @@
     name: docker
     state: started
     enabled: true
+
+- name: Add insecure registries to Docker daemon
+  ansible.builtin.copy:
+    dest: /etc/docker/daemon.json
+    content: |
+      {
+        "insecure-registries":["{{ container_registry_url }}"]
+      }
+    mode: '0644'
+
+- name: Restart Docker
+  ansible.builtin.systemd:
+    name: "docker"
+    state: "restarted"
