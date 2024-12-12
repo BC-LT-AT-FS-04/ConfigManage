@@ -27,4 +27,3 @@
   community.docker.docker_login:
     registry_url: "{{ container_registry_url }}"
     state: absent
-    
