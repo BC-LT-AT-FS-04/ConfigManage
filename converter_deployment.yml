@@ -1,0 +1,8 @@
+- name: Provision Dev Server 
+  hosts: development
+  become: true
+
+  tasks:
+    - name: Deploy Converter Service
+      ansible.builtin.include_tasks:
+        file: tasks/deploy_converter_service.yml
