@@ -1,10 +1,6 @@
 name: Deploy Converter Service to Development Server
 
-# on: workflow_dispatch
-on: 
-  push:
-    branches:
-      - feature/uat-converter-service
+on: workflow_dispatch
 
 env:
   BASTION_SERVER: ${{ secrets.SSH_BASTION_SERVER }}
@@ -47,7 +43,7 @@ jobs:
 
     - name: Provision Servers
       run: |
-        ansible-playbook converter_deployment.yml -i host_vars/inventory.yml -e @group_vars/vars.yml --check
+        ansible-playbook converter_deployment.yml -i host_vars/inventory.yml -e @group_vars/vars.yml
     
     - name: Wait for Converter container
       run: sleep 20
