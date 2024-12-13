@@ -1,9 +1,6 @@
 name: Configs CI/CD Main
 
-on:
-  push:
-    branches:
-      - main
+on: workflow_dispatch
 
 env:
   BASTION_SERVER: ${{ secrets.SSH_BASTION_SERVER }}
