@@ -4,8 +4,8 @@
 
 # List of endpoints
 endpoints=(
-    "https://10.27.5.139:5100/recognition"
-    "https://10.27.5.139:5100/face_recognition"
+    "http://10.27.5.139:5100/recognition"
+    "http://10.27.5.139:5100/face_recognition"
 )
 
 # Payload for the recognition endpoint
@@ -30,14 +30,15 @@ overall_status=0
 for endpoint in "${endpoints[@]}"; do
     echo "Testing: $endpoint (POST)"
 
-    if [ "$endpoint" == "https://10.27.5.139:5100/recognition" ]; then
-        # Perform POST request with JSON payload for /recognition
+    # Prepare the common curl command structure
+    if [[ "$endpoint" == *"/recognition" ]]; then
+        # Send JSON payload for /recognition endpoint
         response_code=$(curl -s -o /dev/null -w "%{http_code}" \
             -X POST "$endpoint" \
             -H "Content-Type: application/json" \
             -d "$payload_recognition")
-    elif [ "$endpoint" == "https://10.27.5.139:5100/face_recognition" ]; then
-        # Perform POST request with multipart/form-data for /face_recognition
+    else
+        # Send form-data for /face_recognition endpoint
         response_code=$(curl -s -o /dev/null -w "%{http_code}" \
             -X POST "$endpoint" \
             -F "zip_url=$zip_url" \
@@ -54,7 +55,6 @@ for endpoint in "${endpoints[@]}"; do
         echo "$endpoint failed with HTTP code $response_code."
         overall_status=1
     fi
-
 done
 
 # Exit with the overall status
@@ -65,3 +65,4 @@ else
 fi
 
 exit $overall_status
+
