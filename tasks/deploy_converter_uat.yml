@@ -10,17 +10,18 @@
         mode: 'u+x'
 
     - name: Run UAT tests
-      ansible.builtin.command:
-        cmd: /ConfigManage/tasks/scripts/run_converter_tests.sh
-      register: uat_test_result
-      ignore_errors: yes
+      block:
+        - ansible.builtin.command:
+            cmd: /ConfigManage/tasks/scripts/run_converter_tests.sh
+          register: uat_test_result
+          ignore_errors: yes
 
-    - name: Check if UAT tests passed
-      ansible.builtin.debug:
-        msg: "UAT tests passed!"
-      when: uat_test_result.rc == 0
+        - name: Check if UAT tests passed
+          ansible.builtin.debug:
+            msg: "UAT tests passed!"
+          when: uat_test_result.rc == 0
 
-    - name: Fail if UAT tests did not pass
-      ansible.builtin.fail:
-        msg: "UAT tests failed!"
-      when: uat_test_result.rc != 0
+        - name: Fail if UAT tests did not pass
+          ansible.builtin.fail:
+            msg: "UAT tests failed!"
+          when: uat_test_result.rc != 0
