@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Base URL for the ConverterService
-BASE_URL="http://10.27.5.139:9090/"
+BASE_URL="http://dev-converter.devops.jala.university"
 
 # Endpoints
 VIDEO_TO_IMAGES_ENDPOINT="/api/video-to-images"
