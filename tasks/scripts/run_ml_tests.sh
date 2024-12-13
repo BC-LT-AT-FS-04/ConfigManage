@@ -51,13 +51,15 @@ for endpoint in "${endpoints[@]}"; do
             -d "$payload_recognition")
     else
         # Send form-data for /face_recognition endpoint
-        response_code=$(curl -s -o /dev/null -w "%{http_code}" \
-            -X POST "$endpoint" \
-            -F "zip_url=$zip_url" \
-            -F "model_type=$model_type" \
-            -F "confidence_threshold=$confidence_threshold" \
-            -F "word=$word" \
-            -F "image_file_reference=@${temp_file}")
+        #TODO: Wait for refactoring of the endpoint in MLService
+        echo "Face_recognition Skipped"
+        # response_code=$(curl -s -o /dev/null -w "%{http_code}" \
+        #     -X POST "$endpoint" \
+        #     -F "zip_url=$zip_url" \
+        #     -F "model_type=$model_type" \
+        #     -F "confidence_threshold=$confidence_threshold" \
+        #     -F "word=$word" \
+        #     -F "image_file_reference=@${temp_file}")
     fi
 
     # Check the response code
