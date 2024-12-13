@@ -50,5 +50,4 @@ jobs:
     
     - name: Run User Acceptance tests
       run: |
-        #./tasks/scripts/run_ml_tests.sh
         echo "Running UAT"
