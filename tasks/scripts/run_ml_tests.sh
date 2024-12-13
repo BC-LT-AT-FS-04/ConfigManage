@@ -1,8 +1,8 @@
 #!/bin/bash
 
 endpoints=(
-  "https://dev-mlservice.at04.devops.jala.university/recognition"
-  "https://dev-mlservice.at04.devops.jala.university/face_recognition"
+  "https://mlservice.at04.devops.jala.university/recognition"
+  "https://mlservice.at04.devops.jala.university/face_recognition"
 )
 
 for url in "${endpoints[@]}"; do
