@@ -13,7 +13,7 @@
       ansible.builtin.command:
         cmd: tasks/scripts/run_converter_tests.sh
       register: uat_test_result
-      ignore_errors: yes
+      ignore_errors: true
 
     - name: Check if UAT tests passed
       ansible.builtin.debug:
