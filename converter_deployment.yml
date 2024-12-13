@@ -1,5 +1,5 @@
-- name: Provision Dev Server 
-  hosts: development
+- name: Provision Server
+  hosts: "{{ target_server | default('development') }}"
   become: true
 
   tasks:
