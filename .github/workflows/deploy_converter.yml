@@ -1,4 +1,4 @@
-name: Deploy Converter Service to Development Server
+name: Deploy Converter Service to Development and Production Servers
 
 on: workflow_dispatch
 
@@ -18,7 +18,7 @@ env:
   CONVERTER_DB_NAME: ${{ secrets.CONVERTER_DB_NAME}}
 
 jobs:
-  converter-deployment:
+  converter-deployment-dev:
     runs-on: ubuntu-22.04
 
     steps:
@@ -37,16 +37,26 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         chmod 600 atbastionkey
 
-    - name: Ping Target Servers
+    - name: Ping Development Server
       run: |
-        ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
+        ansible -i host_vars/inventory.yml development -e @group_vars/vars.yml -m ping
 
-    - name: Deploying Converter
+    - name: Provision Development Server
       run: |
-        ansible-playbook converter_deployment.yml -i host_vars/inventory.yml -e @group_vars/vars.yml
+        ansible-playbook converter_deployment.yml -i host_vars/inventory.yml -e @group_vars/vars.yml -e target_server=development
     
     - name: Wait for Converter container
       run: sleep 20
     
     - name: Run User Acceptance tests
-      run: ./tasks/scripts/run_converter_tests.sh
+      run: |
+        chmod +x ./tasks/scripts/run_converter_tests.sh
+        ./tasks/scripts/run_converter_tests.sh
+      
+    - name: Ping Production Server
+      run: |
+        ansible -i host_vars/inventory.yml production -e @group_vars/vars.yml -m ping
+
+    - name: Provision Production Server
+      run: |
+        ansible-playbook converter_deployment.yml -i host_vars/inventory.yml -e @group_vars/vars.yml -e target_server=production
