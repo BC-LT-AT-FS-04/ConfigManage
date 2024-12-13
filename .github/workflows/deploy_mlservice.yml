@@ -41,3 +41,9 @@ jobs:
     - name: Deploying ML Service
       run: |
         ansible-playbook ml_deployment.yml -i host_vars/inventory.yml -e @group_vars/vars.yml
+    
+    - name: Wait for ML container
+      run: sleep 20
+      
+    - name: Run User Acceptance tests
+      run: ./tasks/scripts/run_ml_tests.sh
