@@ -4,23 +4,28 @@
   become: true
 
   tasks:
-    - name: Ensure the run_converter_tests.sh script is executable
-      ansible.builtin.file:
-        path: tasks/scripts/run_converter_tests.sh
-        mode: 'u+x'
+    - block:
+        - name: Ensure the run_converter_tests.sh script is executable
+          ansible.builtin.file:
+            path: tasks/scripts/run_converter_tests.sh
+            mode: 'u+x'
 
-    - name: Run UAT tests
-      ansible.builtin.command:
-        cmd: tasks/scripts/run_converter_tests.sh
-      register: uat_test_result
-      ignore_errors: true
+        - name: Run UAT tests
+          ansible.builtin.command:
+            cmd: tasks/scripts/run_converter_tests.sh
+          register: uat_test_result
+          ignore_errors: true
 
-    - name: Check if UAT tests passed
-      ansible.builtin.debug:
-        msg: "UAT tests passed!"
-      when: uat_test_result.rc == 0
+        - name: Debug the uat_test_result variable
+          ansible.builtin.debug:
+            var: uat_test_result
 
-    - name: Fail if UAT tests did not pass
-      ansible.builtin.fail:
-        msg: "UAT tests failed!"
-      when: uat_test_result.rc != 0
+        - name: Check if UAT tests passed
+          ansible.builtin.debug:
+            msg: "UAT tests passed!"
+          when: uat_test_result.rc == 0
+
+        - name: Fail if UAT tests did not pass
+          ansible.builtin.fail:
+            msg: "UAT tests failed!"
+          when: uat_test_result.rc != 0
