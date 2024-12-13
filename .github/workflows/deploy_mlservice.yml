@@ -43,7 +43,7 @@ jobs:
         ansible-playbook ml_deployment.yml -i host_vars/inventory.yml -e @group_vars/vars.yml
     
     - name: Wait for ML container
-      run: sleep 20
+      run: sleep 120
 
     - name: Set executable permissions for run_ml_tests.sh
       run: chmod +x ./tasks/scripts/run_ml_tests.sh
