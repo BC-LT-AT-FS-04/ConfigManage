@@ -2,19 +2,18 @@
 - name: Run Converter Service UAT Tests
   hosts: all
   become: true
-
   tasks:
     - name: Ensure the run_converter_tests.sh script is executable
       ansible.builtin.file:
         path: /ConfigManage/tasks/scripts/run_converter_tests.sh
         mode: 'u+x'
 
-    - name: Run UAT tests
-      block:
-        - ansible.builtin.command:
+    - block:
+        - name: Run UAT tests
+          ansible.builtin.command:
             cmd: /ConfigManage/tasks/scripts/run_converter_tests.sh
           register: uat_test_result
-          ignore_errors: yes
+          ignore_errors: true
 
         - name: Check if UAT tests passed
           ansible.builtin.debug:
