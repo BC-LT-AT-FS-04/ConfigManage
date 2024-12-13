@@ -44,7 +44,13 @@ jobs:
     - name: Provision Development Server
       run: |
         ansible-playbook converter_deployment.yml -i host_vars/inventory.yml -e @group_vars/vars.yml -e target_server=development
-
+    
+    - name: Wait for Converter container
+      run: sleep 20
+    
+    - name: Run User Acceptance tests
+      run: ./tasks/scripts/run_converter_tests.sh
+      
     - name: Ping Production Server
       run: |
         ansible -i host_vars/inventory.yml production -e @group_vars/vars.yml -m ping
