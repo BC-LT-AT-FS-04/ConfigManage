@@ -31,9 +31,9 @@ payload_recognition='{
 
 # Data for the face_recognition endpoint
 zip_url="http://10.27.5.151:9090//api/download-frames/556f030a81257cbfeacf800c2a1443a1dddea8dcae5ce58eb15dde6d83027663.zip"
-model_type="face"
+model_type="object"
 confidence_threshold=0.1
-word="woman"
+word="face recognition"
 
 # Variable to track overall status
 overall_status=0
