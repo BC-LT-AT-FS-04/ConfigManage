@@ -5,6 +5,7 @@
 #Image configuration variables
 drive_file_id="1TjCRJQr3_102Y2OmvrDiljOATqDc68Hd"
 temp_file=$(mktemp --suffix=".jpg")
+desired_name="reference_image.jpg"
 
 # Download 
 echo "Downloadign file from Google Drive..."
@@ -56,7 +57,7 @@ for endpoint in "${endpoints[@]}"; do
             -F "model_type=$model_type" \
             -F "confidence_threshold=$confidence_threshold" \
             -F "word=$word" \
-            -F "image_file_reference=@$temp_file")
+            -F "image_file_reference=@$temp_file;filename=$desired_name")
     fi
 
     # Check the response code
