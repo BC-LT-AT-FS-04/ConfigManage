@@ -2,6 +2,18 @@
 
 # Script for User Acceptance Testing of MLService
 
+#Image configuration variables
+drive_file_id="1TjCRJQr3_102Y2OmvrDiljOATqDc68Hd"
+temp_file=$(mktemp)
+
+# Download 
+echo "Downloadign file from Google Drive..."
+curl -L "https://drive.google.com/uc?export=download&id=$drive_file_id" -o "$temp_file"
+if [ $? -ne 0 ]; then
+    echo "Download error"
+    exit 1
+fi
+
 # List of endpoints
 endpoints=(
     "http://mlservice.at04.devops.jala.university/api/recognition"
@@ -21,7 +33,6 @@ zip_url="http://10.27.5.151:9090//api/download-frames/556f030a81257cbfeacf800c2a
 model_type="face"
 confidence_threshold=0.1
 word="woman"
-image_file_reference="https://img.freepik.com/fotos-premium/belleza-feminidad-hermosa-mujer-rubia-cabello-largo-rubio-retrato-natural_360074-52060.jpg"
 
 # Variable to track overall status
 overall_status=0
@@ -45,7 +56,7 @@ for endpoint in "${endpoints[@]}"; do
             -F "model_type=$model_type" \
             -F "confidence_threshold=$confidence_threshold" \
             -F "word=$word" \
-            -F "image_file_reference=$image_file_reference")
+            -F "image_file_reference=@$temp_file")
     fi
 
     # Check the response code
