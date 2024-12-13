@@ -38,15 +38,14 @@ for endpoint in "${endpoints[@]}"; do
             -H "Content-Type: application/json" \
             -d "$payload_recognition")
     else
-        echo "face_recognition..."
         # Send form-data for /face_recognition endpoint
-        # response_code=$(curl -s -o /dev/null -w "%{http_code}" \
-        #     -X POST "$endpoint" \
-        #     -F "zip_url=$zip_url" \
-        #     -F "model_type=$model_type" \
-        #     -F "confidence_threshold=$confidence_threshold" \
-        #     -F "word=$word" \
-        #     -F "image_file_reference=$image_file_reference")
+        response_code=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST "$endpoint" \
+            -F "zip_url=$zip_url" \
+            -F "model_type=$model_type" \
+            -F "confidence_threshold=$confidence_threshold" \
+            -F "word=$word" \
+            -F "image_file_reference=$image_file_reference")
     fi
 
     # Check the response code
