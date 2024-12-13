@@ -4,8 +4,8 @@
 
 # List of endpoints
 endpoints=(
-    "https://dev-mlservice.devops.jala.university/recognition"
-    "https://dev-mlservice.devops.jala.university/face_recognition"
+    "https://10.27.5.139:5100/recognition"
+    "https://10.27.5.139:5100/face_recognition"
 )
 
 # Payload for the recognition endpoint
@@ -30,13 +30,13 @@ overall_status=0
 for endpoint in "${endpoints[@]}"; do
     echo "Testing: $endpoint (POST)"
 
-    if [ "$endpoint" == "https://dev-mlservice.devops.jala.university/recognition" ]; then
+    if [ "$endpoint" == "https://10.27.5.139:5100/recognition" ]; then
         # Perform POST request with JSON payload for /recognition
         response_code=$(curl -s -o /dev/null -w "%{http_code}" \
             -X POST "$endpoint" \
             -H "Content-Type: application/json" \
             -d "$payload_recognition")
-    elif [ "$endpoint" == "https://dev-mlservice.devops.jala.university/face_recognition" ]; then
+    elif [ "$endpoint" == "https://10.27.5.139:5100/face_recognition" ]; then
         # Perform POST request with multipart/form-data for /face_recognition
         response_code=$(curl -s -o /dev/null -w "%{http_code}" \
             -X POST "$endpoint" \
