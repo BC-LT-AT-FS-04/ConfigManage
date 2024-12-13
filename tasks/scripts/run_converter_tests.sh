@@ -127,5 +127,4 @@ test_video_to_images
 test_video_to_video
 test_image_configuration
 test_audio_conversion
-test_audio_conversion
 echo "All tests completed."
