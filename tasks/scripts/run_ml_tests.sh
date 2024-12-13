@@ -4,7 +4,7 @@
 
 #Image configuration variables
 drive_file_id="1TjCRJQr3_102Y2OmvrDiljOATqDc68Hd"
-temp_file=$(mktemp)
+temp_file=$(mktemp --suffix=".jpg")
 
 # Download 
 echo "Downloadign file from Google Drive..."
