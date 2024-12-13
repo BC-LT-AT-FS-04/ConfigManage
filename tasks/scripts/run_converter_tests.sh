@@ -10,9 +10,9 @@ IMAGE_CONFIGURATION_ENDPOINT="/api/image-configuration"
 AUDIO_CONVERSION_ENDPOINT="/api/convert-audio"
 
 # Test files
-TEST_VIDEO_FILE="tasks/tests/resources/test_video.mp4"
-TEST_IMAGE_FILE="tasks/tests/resources/test_image.jpg"
-TEST_AUDIO_FILE="tasks/tests/resources/test_audio.wav"
+TEST_VIDEO_FILE="https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
+TEST_IMAGE_FILE="https://img.freepik.com/fotos-premium/belleza-feminidad-hermosa-mujer-rubia-cabello-largo-rubio-retrato-natural_360074-52060.jpg"
+TEST_AUDIO_FILE="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
 
 # Function to test video-to-images endpoint
 test_video_to_images() {
