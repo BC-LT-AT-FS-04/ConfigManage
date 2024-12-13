@@ -68,6 +68,14 @@ jobs:
       run: |
         ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
 
-    - name: Check playbooks execution
+    - name: Check Provisioning playbook
       run: |
         ansible-playbook playbook.yml -i host_vars/inventory.yml -e @group_vars/vars.yml --check
+
+    - name: Check Converter deployment playbook
+      run: |
+        ansible-playbook converter_deployment.yml -i host_vars/inventory.yml -e @group_vars/vars.yml --check
+
+    - name: Check MLService deployment playbook
+      run: |
+        ansible-playbooy ml_deployment.yml -i host_vars/inventory.yml -e @group_vars/vars.yml --check
