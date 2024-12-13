@@ -1,5 +1,4 @@
 ---
----
 - name: Provision Servers
   hosts: all
   become: true
