@@ -38,6 +38,6 @@ jobs:
       run: |
         ansible -i host_vars/inventory.yml all -e @group_vars/vars.yml -m ping
 
-    - name: Provision Servers
+    - name: Deploying ML Service
       run: |
         ansible-playbook ml_deployment.yml -i host_vars/inventory.yml -e @group_vars/vars.yml
