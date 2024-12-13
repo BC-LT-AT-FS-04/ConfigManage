@@ -81,4 +81,4 @@ jobs:
 
     - name: Check MLService deployment playbook
       run: |
-        ansible-playbooy ml_deployment.yml -i host_vars/inventory.yml -e @group_vars/vars.yml --check
+        ansible-playbook ml_deployment.yml -i host_vars/inventory.yml -e @group_vars/vars.yml --check
