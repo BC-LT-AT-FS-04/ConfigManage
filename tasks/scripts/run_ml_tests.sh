@@ -4,8 +4,8 @@
 
 # List of endpoints
 endpoints=(
-    "http://10.27.5.139:5100/recognition"
-    "http://10.27.5.139:5100/face_recognition"
+    "http://10.27.5.139:5100//api/recognition"
+    "http://10.27.5.139:5100//api/face_recognition"
 )
 
 # Payload for the recognition endpoint
