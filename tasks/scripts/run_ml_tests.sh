@@ -57,7 +57,7 @@ for endpoint in "${endpoints[@]}"; do
             -F "model_type=$model_type" \
             -F "confidence_threshold=$confidence_threshold" \
             -F "word=$word" \
-            -F "image_file_reference=@$temp_file;filename=$desired_name")
+            -F "image_file_reference=@${temp_file})
     fi
 
     # Check the response code
