@@ -11,7 +11,7 @@ AUDIO_CONVERSION_ENDPOINT="/api/convert-audio"
 
 # Test files
 TEST_VIDEO_FILE="tasks/tests/resources/test_video.mp4"
-TEST_IMAGE_FILE="https://img.freepik.com/fotos-premium/belleza-feminidad-hermosa-mujer-rubia-cabello-largo-rubio-retrato-natural_360074-52060.jpg"
+TEST_IMAGE_FILE="tasks/tests/resources/test_image.jpg"
 TEST_AUDIO_FILE="tasks/tests/resources/test_audio.wav"
 
 # Function to test video-to-images endpoint
