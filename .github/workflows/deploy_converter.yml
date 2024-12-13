@@ -45,26 +45,6 @@ jobs:
       run: |
         ansible-playbook converter_deployment.yml -i host_vars/inventory.yml -e @group_vars/vars.yml -e target_server=development
 
-  converter-deployment-prod:
-    runs-on: ubuntu-22.04
-    needs: converter-deployment-dev
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Add SSH Key to known_host
-      run: |
-        mkdir -p ~/.ssh
-        ssh-keyscan -H ${{ secrets.SSH_BASTION_SERVER }} > ~/.ssh/known_hosts
-        
-    - name: Setup SSH Keys
-      run: |
-        echo "${{ secrets.USER_KEY }}" > ~/.ssh/id_rsa
-        echo "${{ secrets.BASTION_KEY }}" > atbastionkey
-        chmod 600 ~/.ssh/id_rsa
-        chmod 600 atbastionkey
-
     - name: Ping Production Server
       run: |
         ansible -i host_vars/inventory.yml production -e @group_vars/vars.yml -m ping
