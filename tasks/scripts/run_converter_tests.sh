@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Base URL for the ConverterService
-BASE_URL="http://dev-converter.devops.jala.university"
+BASE_URL="https://dev-converter.devops.jala.university"
 
 # Endpoints
 VIDEO_TO_IMAGES_ENDPOINT="/api/video-to-images"
@@ -17,7 +17,13 @@ TEST_AUDIO_FILE="tasks/tests/resources/test_audio.wav"
 # Function to test video-to-images endpoint
 test_video_to_images() {
     echo "Testing Video to Images endpoint..."
-    HTTP_RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
+    
+    if [[ ! -f "$TEST_VIDEO_FILE" || ! -s "$TEST_VIDEO_FILE" ]]; then
+        echo "El archivo de video no es válido: $TEST_VIDEO_FILE"
+        exit 1
+    fi
+
+    HTTP_RESPONSE=$(curl -s -o /tmp/response.txt -w "%{http_code}" \
         -X POST \
         -F "file=@${TEST_VIDEO_FILE}" \
         "$BASE_URL$VIDEO_TO_IMAGES_ENDPOINT")
@@ -25,7 +31,8 @@ test_video_to_images() {
     if [[ "$HTTP_RESPONSE" -eq 200 ]]; then
         echo "Video to Images endpoint is working correctly (HTTP $HTTP_RESPONSE)."
     else
-        echo "Video to Images endpoint failed (HTTP $HTTP_RESPONSE)."
+        echo "Video to Images endpoint failed (HTTP $HTTP_RESPONSE). Response:"
+        cat /tmp/response.txt
     fi
 }
 
