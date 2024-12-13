@@ -26,3 +26,7 @@
     - name: Deploy Converter DB server in Development
       ansible.builtin.include_tasks:
         file: tasks/deploy_converter_db.yml
+
+    - name: Deploy ConverterService UA Tests
+      ansible.builtin.include_tasks:
+        file: tasks/deploy_converter_uat.yml
