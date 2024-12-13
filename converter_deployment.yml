@@ -1,4 +1,4 @@
-- name: Provision Server 
+- name: Provision Server
   hosts: "{{ target_server | default('development') }}"
   become: true
 
