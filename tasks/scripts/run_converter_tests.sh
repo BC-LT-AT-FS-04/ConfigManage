@@ -7,8 +7,8 @@ BASE_URL="https://dev-converter.devops.jala.university"
 VIDEO_TO_IMAGES_ENDPOINT="/api/video-to-images"
 VIDEO_TO_VIDEO_ENDPOINT="/api/video-to-video"
 
-# Test files (Update these paths with actual file paths in your system)
-TEST_VIDEO_FILE="/path/to/your/test_video.mp4"  # Replace with the path to a sample video file
+# Test files
+TEST_VIDEO_FILE="tasks/tests/resources/test_video.mp4"
 
 # Function to test video-to-images endpoint
 test_video_to_images() {
@@ -19,9 +19,9 @@ test_video_to_images() {
         "$BASE_URL$VIDEO_TO_IMAGES_ENDPOINT")
 
     if [[ "$HTTP_RESPONSE" -eq 200 ]]; then
-        echo "✅ Video to Images endpoint is working correctly (HTTP $HTTP_RESPONSE)."
+        echo "Video to Images endpoint is working correctly (HTTP $HTTP_RESPONSE)."
     else
-        echo "❌ Video to Images endpoint failed (HTTP $HTTP_RESPONSE)."
+        echo "Video to Images endpoint failed (HTTP $HTTP_RESPONSE)."
     fi
 }
 
@@ -35,9 +35,9 @@ test_video_to_images() {
 #         "$BASE_URL$VIDEO_TO_VIDEO_ENDPOINT")
 
 #     if [[ "$HTTP_RESPONSE" -eq 200 ]]; then
-#         echo "✅ Video to Video endpoint is working correctly (HTTP $HTTP_RESPONSE)."
+#         echo "Video to Video endpoint is working correctly (HTTP $HTTP_RESPONSE)."
 #     else
-#         echo "❌ Video to Video endpoint failed (HTTP $HTTP_RESPONSE)."
+#         echo "Video to Video endpoint failed (HTTP $HTTP_RESPONSE)."
 #     fi
 # }
 
