@@ -115,10 +115,6 @@ test_audio_conversion() {
 
     # Define test parameters
     OUTPUT_FORMAT="mp3"
-    BIT_RATE="192K"
-    SAMPLE_RATE="44100"
-    VOLUME="1.5"
-    LANGUAGE_CHANNEL="1"
     SPEED="2.0"
 
     # Perform the POST request
@@ -126,10 +122,6 @@ test_audio_conversion() {
         -X POST \
         -F "audio=@${TEMP_AUDIO_FILE}" \
         -F "output_format=${OUTPUT_FORMAT}" \
-        -F "bit_rate=${BIT_RATE}" \
-        -F "sample_rate=${SAMPLE_RATE}" \
-        -F "volume=${VOLUME}" \
-        -F "language_channel=${LANGUAGE_CHANNEL}" \
         -F "speed=${SPEED}" \
         "$BASE_URL$AUDIO_CONVERSION_ENDPOINT")
 
