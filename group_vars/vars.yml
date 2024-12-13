@@ -1,18 +1,10 @@
-<<<<<<< HEAD
-# Variables compartidas por todos los servidores:
-=======
 # Shared environment variables for the servers:
->>>>>>> 68e8321b2e3205238ea2c7899e4ad0ae31371e2b
 dev_server: "{{ lookup('env', 'DEV_SERVER_IP') }}"
 prod_server: "{{ lookup('env', 'PROD_SERVER_IP') }}"
 bastion_server: "{{ lookup('env', 'BASTION_SERVER') }}"
 bastion_user: "{{ lookup('env', 'BASTION_USER') }}"
 bastion_key: "{{ lookup('env', 'BASTION_KEY') }}"
 dev_prod_user: "{{ lookup('env', 'DEV_PROD_USER') }}"
-<<<<<<< HEAD
-
-# lookup('env', ...) asegura que no tengamos información sensible en el repo y sea manejada desde el CI/CD
-=======
 pg_db_user: "{{ lookup('env', 'PG_DB_USER') }}"
 pg_db_password: "{{ lookup('env', 'PG_DB_PASSWORD') }}"
 pg_db_name: "{{ lookup('env', 'PG_DB_NAME') }}"
@@ -32,7 +24,3 @@ converter_db_uri: "postgresql://{{ converter_db_user }}:{{ converter_db_password
 mlservice_version: "{{ lookup('env', 'MLSERVICE_VERSION') }}"
 
 # lookup('env', ...) makes sure that we don't have sensitive data in the repo and it's managed by the CI/CD
-<<<<<<< HEAD
->>>>>>> 68e8321b2e3205238ea2c7899e4ad0ae31371e2b
-=======
->>>>>>> d95331fe833a8a53496066b28c3e1f9ec13831a7
