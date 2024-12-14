@@ -49,9 +49,7 @@ jobs:
       run: sleep 20
     
     - name: Run User Acceptance tests
-      run: |
-        chmod +x ./tasks/scripts/run_converter_tests.sh
-        ./tasks/scripts/run_converter_tests.sh
+      run: ./tasks/scripts/run_converter_tests.sh
       
     - name: Ping Production Server
       run: |
